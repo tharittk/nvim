@@ -1,5 +1,7 @@
 syntax on
 set number
+highlight LineNr ctermfg=Grey guifg=Grey
+
 filetype plugin indent on
 " Standard indentation
 set tabstop=8

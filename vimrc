@@ -13,6 +13,36 @@ set clipboard=unnamedplus
 set hlsearch
 nnoremap <Space> <Nop>
 let mapleader = " "
+
+if has("cscope")
+    " 1. Set cscopetag to use cscope before ctags
+    set cscopetag
+
+    " 2. Temporarily turn off verbosity so Vim doesn't prompt on connection
+    set nocscopeverbose
+
+    " 3. Robust path discovery (searches upward from current file directory)
+    let s:db = findfile("cscope.out", ".;")
+    if !empty(s:db)
+        execute "cs add " . fnameescape(s:db)
+    elseif $CSCOPE_DB != ""
+        execute "cs add " . fnameescape($CSCOPE_DB)
+    endif
+
+    " 4. Restore verbosity so actual query errors are visible
+    set cscopeverbose
+endif
+
+" --- Optimized Cscope Key Mappings ---
+" Added <CR> at the beginning to clear the command line and prevent artifact display
+nnoremap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR>
+nnoremap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR>
+nnoremap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>
+nnoremap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>
+nnoremap <C-\>t :cs find t <C-R>=expand("<cword>")<CR><CR>
+nnoremap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
+nnoremap <C-\>i :cs find i <C-R>=expand("<cfile>")<CR><CR>
+
 " ------------------ Plugin
 if empty(glob('~/.vim/autoload/plug.vim'))
     silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs \

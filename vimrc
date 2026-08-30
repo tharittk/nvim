@@ -1,6 +1,7 @@
 syntax on
 set number
-highlight LineNr ctermfg=Grey guifg=Grey
+highlight LineNr ctermfg=244 guifg=#808080
+
 
 filetype plugin indent on
 " Standard indentation
@@ -9,8 +10,8 @@ set softtabstop=8
 set shiftwidth=8
 set noexpandtab
 set textwidth=80
-set clipboard=unnamedplus
 set hlsearch
+
 nnoremap <Space> <Nop>
 let mapleader = " "
 
